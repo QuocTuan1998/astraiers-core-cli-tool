@@ -1,5 +1,1 @@
-#!/bin/bash
-
-source ./tools/banner.sh
-echo Asstraiers
-
+astraiers-tool-cli.sh
