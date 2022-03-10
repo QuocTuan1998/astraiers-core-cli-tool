@@ -8,6 +8,7 @@ echo -e "\nInstalling Astraitors core cli tool..\n\n"
 ASS_GIT_USERNAME=${ASS_GIT_USERNAME:-thanhntmany}
 ASS_REPO_NAME=${ASS_REPO:-astraiers-core-cli-tool}
 ASS_REMOTE=${ASS_REMOTE:-https://github.com/${ASS_GIT_USERNAME}/${ASS_REPO_NAME}.git}
+ASS_BRANCH_NAME=${ASS_BRANCH_NAME:-'prod'}
 
 PREFIX=${PREFIX:-"/usr"}
 BINDIR=${BINDIR:-$PREFIX/bin}
@@ -15,7 +16,7 @@ LIBEXECDIR=${LIBEXEC:-$PREFIX/libexec}
 
 pushd "$LIBEXECDIR" > /dev/null
 rm -Rf $ASS_REPO_NAME &> /dev/null
-git clone -b prod $ASS_REMOTE 
+git clone -b $ASS_BRANCH_NAME $ASS_REMOTE 
 
 cd $ASS_REPO_NAME
 ASS_WORKING_DIR=$PWD
