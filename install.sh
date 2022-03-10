@@ -1,12 +1,20 @@
 #!/bin/bash
-
 # Installing for this tool
 
-# Load config
-source ./config/default.conf
+set -e
 
-# Add command to shell
-echo ${ASSTRAIERS_CLI_NAME}
-ln -fs "astraiers-tool-cli.sh" ${ASSTRAIERS_CLI_NAME}
+# Default settings
+ASS_REPO=${REPO:-ohmyzsh/ohmyzsh}
+ASS_REMOTE=${REMOTE:-https://github.com/${REPO}.git}
+ASS_BRANCH=${BRANCH:-master}
 
+PREFIX=${PREFIX:-"/usr"}
+BINDIR=${BINDIR:-$PREFIX/bin}
+LIBEXECDIR=${LIBEXEC:-$PREFIX/libexec}
+
+#echo $PREFIX
+#echo $BINDIR
+#echo $LIBEXECDIR
+
+echo "Cloning Asstraiters-core-cli-tool...:
 
