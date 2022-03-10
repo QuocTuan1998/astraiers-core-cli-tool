@@ -31,7 +31,7 @@ rm -Rf $ASS_CORE_DIR
 echo -e "Done.\n"
 
 echo -e "You can reinstall this tool by executing below command:\n"
-echo -e 'bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/main/install.sh -O -)"'
+echo -e 'bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/prod/install.sh -O -)"'
 echo ""
 
 echo -e "Thanks for trying out Asstraiers's CLI tool (ass). It's been uninstalled."

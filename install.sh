@@ -15,7 +15,7 @@ LIBEXECDIR=${LIBEXEC:-$PREFIX/libexec}
 
 pushd "$LIBEXECDIR" > /dev/null
 rm -Rf $ASS_REPO_NAME &> /dev/null
-git clone $ASS_REMOTE 
+git clone -b prod $ASS_REMOTE 
 
 cd $ASS_REPO_NAME
 ASS_WORKING_DIR=$PWD
