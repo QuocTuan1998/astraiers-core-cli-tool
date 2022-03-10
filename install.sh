@@ -17,14 +17,14 @@ pushd "$LIBEXECDIR" > /dev/null
 rm -Rf $ASS_REPO_NAME &> /dev/null
 git clone $ASS_REMOTE 
 
-
 cd $ASS_REPO_NAME
 ASS_WORKING_DIR=$PWD
 
 echo -e "\nAdd \"ass\" to commandline."
 chmod +x astraiers-tool-cli.sh
+TMP_ASS_RELATIVE_PATH=$(realpath --relative-to="${BINDIR}" ./astraiers-tool-cli.sh)
 cd $BINDIR
-ln -sf $ASS_WORKING_DIR/astraiers-tool-cli.sh ass
+ln -sf "$TMP_ASS_RELATIVE_PATH" ass
 
 popd > /dev/null
 
