@@ -13,7 +13,6 @@ Khuyến cáo các anh em mới tham gia hoặc đang học cơ bản từ đầ
 Cách 1: Run command sau trong terminal:
 ```bash
 bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/main/install.sh -O -)"
-`
 ```
 
 Cách 2:
@@ -30,7 +29,7 @@ bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli
 Cách 2:
 Pull repo này về và run file uninstall.sh
 
-*Chức năng uninstall sẽ tìm và gỡ cài đặt __ass command__ và __thư mục chương trình trong dir hệ thống /libexec_.*
+*Chức năng uninstall sẽ tìm và gỡ cài đặt __ass command__ và __thư mục chương trình trong dir hệ thống /libexec__.*
 
 *Bạn có thể run file uninstall ở bất cứ đâu để gỡ cài đặt chương trình này*
 
