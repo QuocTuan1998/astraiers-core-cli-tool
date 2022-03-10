@@ -12,7 +12,7 @@ Khuyến cáo các anh em mới tham gia hoặc đang học cơ bản từ đầ
 
 Cách 1: Run command sau trong terminal:
 ```bash
-bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/main/install.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/prod/install.sh -O -)"
 ```
 
 Cách 2:
@@ -23,7 +23,7 @@ Pull repo này về và run file install.sh
 
 Cách 1: Run command sau trong terminal:
 ```bash
-bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/main/uninstall.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/thanhntmany/astraiers-core-cli-tool/prod/uninstall.sh -O -)"
 ```
 
 Cách 2:
