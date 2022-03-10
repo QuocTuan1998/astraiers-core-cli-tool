@@ -28,5 +28,7 @@ ln -sf "$TMP_ASS_RELATIVE_PATH" ass
 
 popd > /dev/null
 
+echo -e "Done.\n"
+
 ass
 
