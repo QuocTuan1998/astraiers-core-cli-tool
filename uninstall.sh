@@ -13,7 +13,7 @@ if ! [ -x "$(command -v ass)" ]; then
 fi
 
 ASS_CLI_PATH=$(which ass 2>/dev/null)
-echo $(realpath $$ASS_CLI_PATH)
+echo $(realpath $ASS_CLI_PATH)
 ASS_CORE_DIR=$(dirname $(realpath $$ASS_CLI_PATH))
 
 echo "Removing \"ass\" from commandline."
