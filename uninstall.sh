@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 
 read -r -p "Are you sure you want to remove ass? [y/N] " confirmation
 if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
@@ -7,8 +7,13 @@ if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
 	    exit
 fi
 
+if ! [ -x "$(command -v ass)" ]; then
+	echo "ERROR: ass could not be found!"
+	exit 1
+fi
 
 ASS_CLI_PATH=$(which ass 2>/dev/null)
+echo $(realpath $$ASS_CLI_PATH)
 ASS_CORE_DIR=$(dirname $(realpath $$ASS_CLI_PATH))
 
 echo "Removing \"ass\" from commandline."
