@@ -16,19 +16,17 @@ LIBEXECDIR=${LIBEXEC:-$PREFIX/libexec}
 pushd "$LIBEXECDIR" > /dev/null
 rm -Rf $ASS_REPO_NAME &> /dev/null
 git clone $ASS_REMOTE 
+
+
 cd $ASS_REPO_NAME
+ASS_WORKING_DIR=$PWD
 
 echo -e "\nAdd \"ass\" to commandline."
 chmod +x astraiers-tool-cli.sh
-ln -f astraiers-tool-cli.sh ass
-
+cd $BINDIR
+ln -sf $ASS_WORKING_DIR/astraiers-tool-cli.sh ass
 
 popd > /dev/null
 
-#echo $PREFIX
-#echo $BINDIR
-#echo $LIBEXECDIR
-
-
-
+ass
 
