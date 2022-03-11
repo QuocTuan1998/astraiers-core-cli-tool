@@ -8,7 +8,7 @@ if ! [ -x "$ASS_CLI_PATH" ]; then
 	echo "ERROR: ass could not be found!"
 	exit 1
 fi
-echo -e "Found \"ass\" excuter at:"
+echo -e "Found \"ass\" executer at:"
 echo -e " - $ASS_CLI_PATH"
 
 ASS_CORE_DIR=$(dirname $(realpath $ASS_CLI_PATH))
