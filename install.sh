@@ -12,9 +12,9 @@ ASS_BRANCH_NAME=${ASS_BRANCH_NAME:-'prod'}
 
 PREFIX=${PREFIX:-"/usr"}
 BINDIR=${BINDIR:-$PREFIX/bin}
-LIBEXECDIR=${LIBEXEC:-$PREFIX/libexec}
+LIBDIR=${LIBDIR:-$PREFIX/lib}
 
-pushd "$LIBEXECDIR" > /dev/null
+pushd "$LIBDIR" > /dev/null
 rm -Rf $ASS_REPO_NAME &> /dev/null
 git clone -b $ASS_BRANCH_NAME $ASS_REMOTE 
 
