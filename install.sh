@@ -14,6 +14,9 @@ _PREFIX=${PREFIX:-"/usr"}
 _BINDIR=${_BINDIR:-${_PREFIX}/bin}
 _LIBDIR=${_LIBDIR:-$_PREFIX/lib}
 
+echo "$_PREFIX"
+echo "$_BINDIR"
+echo "$_LIBDIR"
 cd "$_LIBDIR"
 rm -Rf $ASS_REPO_NAME &> /dev/null
 echo git clone -b $ASS_BRANCH_NAME $ASS_REMOTE
