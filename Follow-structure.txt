@@ -1,0 +1,53 @@
+# Type 1: run with code 
+# ass the-magic abc def
+
+## Workflow diagram
+#
+# sh -c "$(wget https://c.ass.io -O -)" ass the-magic abc def
+#                        ||
+#                 [ass_init.sh]
+#
+# [ass-main.sh]
+#  RUN: ass the-magic abc def
+#  Find the-magic in device (list default dir)
+#   |
+#   v
+#   +-<Not found>
+#   |   |
+#   |   v
+#   |  Initial ass (use ass cmd to execute from here)
+#   |  Fetch the-magic from ass repository {Package file/folder}
+#   |  Store to specific space (adcoding to type of run)
+#   |   |
+#   |  RUN: Pakage - init.sh
+#   |   |
+#   |<--+
+#   |
+#   v
+#  RUM: the-magic abc def
+#
+
+Ass package hooks:
+ass-main.sh
+    - Main executer of package
+
+(optinal) ass-completion.sh
+    - Default executer file to get the list of completion
+
+(optinal) ass-completion.bash
+    - SPecific completion for bash
+
+(optinal) ass-completion.zsh
+    - SPecific completion use for zsh
+
+(optinal) ass-initstall.sh
+    - Getting ready to build the package on current specific system.
+    - It makes sure all of the dependencies for the rest of the build.
+    - Install process are available
+    - Finds out whatever it needs to know to use those dependencies.
+
+(optinal) ass-uninstall.sh (optinal)
+    - package Self uninstall
+
+#TODO: Hoàn thiện cơ chế nạp depence, ass cho phép depence vòng, tải hết đống đó về xong mới chạy hết list install một thể
+#TODO: 
