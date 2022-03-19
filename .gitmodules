@@ -1,3 +1,4 @@
 [submodule "helpers/bash-read-write-file-variable"]
 	path = helpers/bash-read-write-file-variable
 	url = git@github.com:thanhntmany/bash-read-write-file-variable.git
+	branch = main
