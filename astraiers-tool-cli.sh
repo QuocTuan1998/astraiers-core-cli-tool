@@ -11,24 +11,49 @@ if [[ -x "./astraiers-tool-cli.sh" ]]; then
 fi
 
 # Load helpers
-. $_ASS_DIR/helpers/bash-read-write-file-variable/ass-main.sh
+# . $_ASS_DIR/helpers/bash-read-write-file-variable/ass-main.sh
 . $_ASS_DIR/helpers/load_fhs_variable.sh
+
+__is_func_exists () {
+	declare -f -- "$1" >/dev/null 2>&1
+}
+
 
 PACKAGE_SOURCES_DIR=$_ASS_DIR/package-sources
 
-_find_package_from_package_source_file()
+_load_package_source_handler()
 {
-    local pkg_name=$1
+    local pkg_type=$1
+    local pkg_h_path=$_ASS_DIR/package-source-handlers/$pkg_type.sh
+    if [[ -x "$pkg_h_path" ]]; then
+        return 0 #true
+    fi
 }
 
-_find_package()
+_get_package_with_source_metadata()
 {
-    local pkg_name=$1
-    shift
-    for pkg_s in "$PACKAGE_SOURCES_DIR"/*; do
+    local pkg_s=$1 pkg_name=$2
+    shift 2
+
+    # Isolating variable enviroment before loading the script file
+    (
+        . "$pkg_s"
         echo $pkg_s
-        # . "$pkg_s"
-    done
+        echo - type : $type
+    )
+
 }
 
-_find_package $@
+_get_package()
+{
+    local pkg_s pkg_name=$1
+    shift
+
+    #TODO: them tinh nang sort file truoc khi nap
+    for pkg_s in "$PACKAGE_SOURCES_DIR"/*; do
+        _get_package_with_source_metadata "$pkg_s" "$pkg_name"
+    done
+
+}
+
+_get_package $@
