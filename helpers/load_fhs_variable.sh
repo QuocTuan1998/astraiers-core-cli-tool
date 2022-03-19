@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Ass-core-tools use a group of variable that 
 
@@ -17,7 +17,7 @@ case "$FILE_SYSTEM_LAYOUT" in
       # Bash compat-completion-directory definition
       # Ref: https://raw.githubusercontent.com/scop/bash-completion/2.8/doc/bash_completion.txt
       _comp_compat_dir=${BASH_COMPLETION_COMPAT_DIR:-/etc/bash_completion.d}
-      ;;&
+      ;;
     termux)
       # As Termux uses it own file system layout, we must use a specific one for it.
       # Ref: https://github.com/termux/termux-packages/wiki/Termux-file-system-layout
