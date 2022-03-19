@@ -1,3 +1,18 @@
+# Repo source file structure (it'll run by bash):
+----
+type=[none|directory|git|..]
+# specific variable depend of type
+----
+type=none
+----
+type=directory
+path=~/home/asdas
+---
+type=git
+git_username=SOMEONE
+
+
+
 # Type 1: run with code 
 # ass the-magic abc def
 

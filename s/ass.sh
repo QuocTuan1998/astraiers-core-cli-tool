@@ -1,5 +1,47 @@
 #!/bin/bash
 
+# Author: Thanhntmany
+#
+# Write and load bash variable to/from file
+# Write:
+#   $> write_variables_to_file FILEPATH var1 var2 var3 ...
+# Load:
+#   $> load_variables_from_file FILEPATH var1 var3
+#   $> . $load_variables_from_file_RET_FILE
+#
+# After run load_variables_from_file, delacrations of listed variables will be
+# stored in load_variables_from_file_RET_FILE.
+# Then you can use the second command to load the listed variables into
+# the current variable environment.
+# NOTE: load_variables_from_file_RET_FILE is a file stored in tmp folder,
+# it's removed automatically by OS. However, in som case, you must remove
+# it by yourself
+
+write_variables_to_file()
+{
+    local _file_output=$1
+    shift
+    (
+        declare -p $@
+    )>"$_file_output"
+
+}
+
+load_variables_from_file_RET_FILE=
+load_variables_from_file()
+{
+    local _file_input=$1
+    shift
+    local $@
+    load_variables_from_file_RET_FILE=$(mktemp --suffix=__asstraiers )
+    (
+        . "$_file_input" &>/dev/null
+        declare -p $@ 2>/dev/null
+    )>$load_variables_from_file_RET_FILE
+}
+#NOTE: to load the result, run the code below
+# $> . $load_variables_from_file_RET_FILE
+
 is_ass_exists() {
     command -v ass >/dev/null 2>&1
 }
@@ -31,17 +73,22 @@ fi
 # Find package from the list of specific directories $_ASS_REPOSITORES_DIRS.
 # @param $1 package name
 # [#TODO] @param $2 (optinal) specifying version ranges
-# Fallback:_find_package_dir_RET = dir path of the found package
-_find_package_dir_RET=''
-_find_package_dir()
+# Fallback:_find_package_RET = dir path of the found package
+_find_package_RET=''
+_find_package()
 {
+
+
+
+
+
     local pkg_name=$1 package_dir
-    _find_package_dir_RET=''
+    _find_package_RET=''
     for repo_dir in ${_ASS_REPOSITORES_DIRS[@]}; do
         [[ -d "$repo_dir" ]] || continue
         package_dir=$repo_dir/$pkg_name
         if [[ -d "$package_dir" ]] && [[ -e "$package_dir/ass-main.sh" ]]; then
-            _find_package_dir_RET=$package_dir
+            _find_package_RET=$package_dir
             return 0 #true
         fi
     done
@@ -69,8 +116,8 @@ _invoke_package()
 {
     local pkg_name=$1 package_dir
 
-    if _find_package_dir $pkg_name; then
-        package_dir=$_find_package_dir_RET
+    if _find_package $pkg_name; then
+        package_dir=$_find_package_RET
         echo Found: $package_dir
     else
         echo NOT FOUND

@@ -1,0 +1,2 @@
+type=git
+git_username=thanhntmany
