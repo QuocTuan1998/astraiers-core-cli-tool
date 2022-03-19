@@ -7,20 +7,28 @@ fi
 # For development
 if [[ -x "./astraiers-tool-cli.sh" ]]; then
     _ASS_EXECUTER_PATH=./astraiers-tool-cli.sh
-    _ASS_DIR=./
+    _ASS_DIR=.
 fi
 
 # Load helpers
 . $_ASS_DIR/helpers/bash-read-write-file-variable/ass-main.sh
 . $_ASS_DIR/helpers/load_fhs_variable.sh
 
-echo _ASS_EXECUTER_PATH : $_ASS_EXECUTER_PATH
-echo _ASS_DIR : $_ASS_DIR
+PACKAGE_SOURCES_DIR=$_ASS_DIR/package-sources
 
+_find_package_from_package_source_file()
+{
+    local pkg_name=$1
+}
 
-echo FILE_SYSTEM_LAYOUT : $FILE_SYSTEM_LAYOUT
+_find_package()
+{
+    local pkg_name=$1
+    shift
+    for pkg_s in "$PACKAGE_SOURCES_DIR"/*; do
+        echo $pkg_s
+        # . "$pkg_s"
+    done
+}
 
-# for _comp_file in "$_comp_compat_dir"/*; do
-#     [[ ${_comp_file##*/} != @($_backup_glob|Makefile*|$_comp_init_blacklist_glob) &&
-#         -f $_comp_file && -r $_comp_file ]] && . "$_comp_file"
-# done
+_find_package $@
