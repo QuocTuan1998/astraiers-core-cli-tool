@@ -108,9 +108,9 @@ find_package()
 # Main execution
 main()
 {
-    echo okokokokok
+    echo ASS IS BEING EXECUTED.
 }
 
-if ! [ $_FLAG_JUST_LOAD = true ]; then
+if ! [ "$_FLAG_JUST_LOAD" = true ]; then
     main $@
 fi
