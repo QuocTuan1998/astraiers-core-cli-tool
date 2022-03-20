@@ -38,65 +38,53 @@ _is_func_exist () {
 declare -a FINDING_PACKAGE_SOURCES_metascript_ref=()
 declare -a FETCHING_PACKAGE_SOURCES_metascript_ref=()
 
-# Handlers for finding package
-# find_package__$type
-find_package__directory()
+source_has_package__directory()
 {
-    declare -n _out=$1
-    local pkg_name=$2
+    local pkg_name=$1
     # $path: set from metascript, indent to package-source-directiory
 
     local pkg_path=$path/$pkg_name
     if [ -d "$pkg_path" ]; then
-        _out=$pkg_path
         return 0
     fi
     return 1
 }
 
-find_package_local_with_metascript_ref()
+source_has_package()
 {
-    declare -n _out=$1
+    declare -n source_metascript=$1
     local pkg_name=$2
-    declare -n metascript=$3
 
     #TODO: Them chuc nang load ref file
     type=''
-    eval "$metascript"
+    eval "$source_metascript"
 
     [ "$type" = dir ] && type=directory #alias
 
-    _out=''
-    local handler=find_package__$type
+    local handler=source_has_package__$type
     if _is_func_exist $handler; then
-        local _ret
-        if $handler _ret $pkg_name; then
-            _out=$_ret
+        if $handler $pkg_name; then
             return 0
         else
-            echo TODO: Could not found package: $pkg_name #TODO: them chuc nang yeu cau nap ass
-            echo haizzz
+            return 1
         fi
     else
-        echo TODO: Could not found handler for type: $type #TODO: them chuc nang yeu cau nap ass
-        echo haizzz
+        # echo TODO: Could not found handler for type: $type #TODO: them chuc nang yeu cau nap ass
+        # echo haizzz
+        return 2
     fi
 
     return 1
 }
 
-# Find package in device
-find_package()
+# Find package
+scan_sources_for_package()
 {
-    declare -n _out=$1
-    local pkg_name=$2
+    local pkg_name=$1
 
-    _out=''
-    local __pkg_dir
     for metascript_ref in ${FINDING_PACKAGE_SOURCES_metascript_ref[@]}; do
-        if find_package_local_with_metascript_ref __pkg_dir $pkg_name $metascript_ref;
-        then
-            _out=$__pkg_dir
+        if source_has_package $metascript_ref $pkg_name; then
+            echo FOUND FOUND FOUND at: $metascript_ref
             return 0
         fi
     done
@@ -107,10 +95,10 @@ main()
 {
     local package_name=$1
     #TODO: them validate cho input
+
     echo ASS IS BEING EXECUTED.
-    # Find and check is package avaliable in device.
     local package_dir=''
-    find_package package_dir $package_name
+    scan_sources_for_package $package_name
 
     echo package_dir: $package_dir
 }
