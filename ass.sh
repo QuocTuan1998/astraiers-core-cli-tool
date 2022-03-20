@@ -104,14 +104,8 @@ find_package()
 
 # If not found in device, try to fetch it from list repositories.
 
-echo ================
-declare -p BASH_SOURCE
-echo xxxxxxxxxxxxxxx $ASS_CORE_DIR
-# declare -p SCRIPT_DIR
-
 # =============================================================================
 # Main execution
-
 main()
 {
     echo okokokokok
