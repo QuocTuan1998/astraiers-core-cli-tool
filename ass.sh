@@ -7,7 +7,8 @@
 # Để có thể hoạt động độc lập thì cái củ lìn này phải lưu thêm 1 lượng tối
 # tối thiểu vừa đủ dùng.
 # Nhức cái đầu.
-# Anh em nào không hiểu thì liên hệ Thanhntmany (0344087349) mình đàm đạo thêm hen
+# Anh em nào muốn tìm hiểu thêm thì liên hệ Thanhntmany (0344087349)
+# mình đàm đạo hen
 
 # This is the portable version (the minimum-usable-core) of Astraiers-core-tool.
 # You can run this executer independently at anywhere.
@@ -19,12 +20,11 @@
 #     bash ./ass.sh the-magic param1 param 2
 #
 
+_FLAG_JUST_LOAD=false
 if [ "$1" =  "--just-load" ]; then
-    # echo KHICH HOAT CHE DO CHI NAP
+    _FLAG_JUST_LOAD=true
+    shift
 fi
-
-package_name=$1
-shift
 
 # Init
 # List package source metadata to find the specific package
@@ -63,7 +63,7 @@ _ASS_PACKAGE_SOURCE_Ds=$_ASS_DIR/package-sources
 
 
 # =============================================================================
-# Execution
+# Minimum-usable-core
 
 # Find package in device (form the specific directories)
 find_package_local_dir()
@@ -108,3 +108,15 @@ echo ================
 declare -p BASH_SOURCE
 echo xxxxxxxxxxxxxxx $ASS_CORE_DIR
 # declare -p SCRIPT_DIR
+
+# =============================================================================
+# Main execution
+
+main()
+{
+    echo okokokokok
+}
+
+if ! [ $_FLAG_JUST_LOAD = true ]; then
+    main $@
+fi
