@@ -18,7 +18,6 @@ ASS_CORE_DIR=$(dirname $(realpath "${BASH_SOURCE[0]}"))
 
 # =============================================================================
 # Load the extension parts
-
 echo TODO: LOAD EXTENSION PARTS #TODO:
 
 # =============================================================================

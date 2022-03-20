@@ -26,6 +26,35 @@ if [ "$1" =  "--just-load" ]; then
     shift
 fi
 
+# =============================================================================
+# Minimum-usable-core: BEGIN
+
+declare -a PACKAGE_SOURCES_IN_DEVICE=()
+
+# Find package in device (form the specific directories)
+find_package_in_device()
+{
+    declare -n _pkg_dir=$1
+    local pkg_name=$2
+
+    _pkg_dir='some where'
+
+    return 0
+}
+
+main()
+{
+    echo ASS IS BEING EXECUTED.
+    # Find and check is package avaliable in device.
+    local package_dir=''
+    find_package_in_device package_dir package_name
+
+    echo package_dir: $package_dir
+}
+# Minimum-usable-core: END
+# =============================================================================
+
+
 # Init
 # List package source metadata to find the specific package
 declare -a _ASS_PACKAGE_SOURCE_ATTACHED_REFs
@@ -42,75 +71,7 @@ _ASS_PACKAGE_SOURCE_ATTACHED_REFs+=( _pkgs_git_thanhntmany )
 
 
 # =============================================================================
-# DRAFT: BEGIN
-_ASS_EXECUTER_PATH=$(which ass 2>/dev/null)
-if [[ -x "$_ASS_EXECUTER_PATH" ]]; then
-    _ASS_DIR=$(dirname $(realpath "$_ASS_EXECUTER_PATH"))
-fi
-# For development
-if [[ -x "./astraiers-tool-cli.sh" ]]; then
-    _ASS_EXECUTER_PATH=./astraiers-tool-cli.sh
-    _ASS_DIR=.
-fi
-
-__is_func_exists () {
-	declare -f -- "$1" >/dev/null 2>&1
-}
-
-_ASS_PACKAGE_SOURCE_Ds=$_ASS_DIR/package-sources
-# DRAFT: END
-# =============================================================================
-
-
-# =============================================================================
-# Minimum-usable-core
-
-# Find package in device (form the specific directories)
-find_package_local_dir()
-{
-    declare -n _out=$1
-    local pkg_name=$2
-    local dir=$3
-    shift 3
-
-}
-
-find_package_local()
-{
-    declare -n _out=$1
-    local pkg_name=$2
-    shift 2
-    echo ----
-}
-
-find_package_from_source()
-{
-    declare -n _out=$1
-    local pkg_name=$2
-    declare -n source=$3
-    shift 3
-
-    source[type]
-
-}
-
-
-find_package()
-{
-    declare -n _out=$1
-    local pkg_name=$2
-
-}
-
-# If not found in device, try to fetch it from list repositories.
-
-# =============================================================================
 # Main execution
-main()
-{
-    echo ASS IS BEING EXECUTED.
-}
-
 if ! [ "$_FLAG_JUST_LOAD" = true ]; then
     main $@
 fi
