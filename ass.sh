@@ -78,35 +78,39 @@ find_package_local_with_metascript_ref()
     eval "$metascript"
 
     [ "$type" = dir ] && type=directory #alias
+
+    _out=''
     local handler=find_package__$type
     echo "" #TODO: Remove this line
     if _is_func_exist $handler; then
         local _ret
         if $handler _ret $pkg_name; then
             echo $_ret
-        else
-            echo haizzz
+            _out=$_ret
+            return 0
         fi
-
-    else
-        echo TODO: Could not found $handler #TODO: them chuc nang yeu cau nap ass
     fi
+    echo TODO: Could not found $handler #TODO: them chuc nang yeu cau nap ass
+    echo haizzz
+    return 1
 }
 
 # Find package in device
 find_package_local()
 {
-    declare -n _pkg_dir=$1
+    declare -n _out=$1
     local pkg_name=$2
 
-    local metascript __pkg_dir
+    _out=''
+    local __pkg_dir
     for metascript_ref in ${LOCAL_PACKAGE_SOURCES_metascript_ref[@]}; do
-        find_package_local_with_metascript_ref __pkg_dir $pkg_name $metascript_ref
+        if find_package_local_with_metascript_ref __pkg_dir $pkg_name $metascript_ref;
+        then
+            _out=$__pkg_dir
+            return 0
+        fi
     done
-
-    _pkg_dir='some where in device'
-
-    return 0
+    return 1
 }
 
 main()
@@ -127,11 +131,12 @@ main()
 
 # =============================================================================
 # Attached data: BEGIN
-_pkgs_local_thanhntmany_lab="type=dir; path=~/lab"
-LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
 
 _pkgs_git_thanhntmany="type=git_codeinfile; git_username=~/lab"
 LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany )
+
+_pkgs_local_thanhntmany_lab="type=dir; path=~/lab"
+LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
 # Attached data: END
 # =============================================================================
 
