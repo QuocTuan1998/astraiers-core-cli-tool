@@ -38,22 +38,8 @@ _is_func_exist () {
 declare -a LOCAL_PACKAGE_SOURCES_metascript_ref=()
 declare -a FETCHING_PACKAGE_SOURCES_metascript_ref=()
 
-find_package_with_metadata()
-{
-    echo aa
-}
-
-# Find package from extend-package source
-find_package_extend()
-{
-    declare -n _pkg_dir=$1
-    local pkg_name=$2
-
-    _pkg_dir='some where in device'
-
-    return 0
-}
-
+# Handler to find package
+# find_package__$type
 find_package__directory()
 {
     declare -n _out=$1
@@ -75,23 +61,27 @@ find_package_local_with_metascript_ref()
     declare -n metascript=$3
 
     #TODO: Them chuc nang load ref file
+    type=''
     eval "$metascript"
 
     [ "$type" = dir ] && type=directory #alias
 
     _out=''
     local handler=find_package__$type
-    echo "" #TODO: Remove this line
     if _is_func_exist $handler; then
         local _ret
         if $handler _ret $pkg_name; then
-            echo $_ret
             _out=$_ret
             return 0
+        else
+            echo TODO: Could not found package: $pkg_name #TODO: them chuc nang yeu cau nap ass
+            echo haizzz
         fi
+    else
+        echo TODO: Could not found handler for type: $type #TODO: them chuc nang yeu cau nap ass
+        echo haizzz
     fi
-    echo TODO: Could not found $handler #TODO: them chuc nang yeu cau nap ass
-    echo haizzz
+
     return 1
 }
 
@@ -131,11 +121,20 @@ main()
 
 # =============================================================================
 # Attached data: BEGIN
+_pkgs_git_thanhntmany_repo="
+type=git_repo
+git_username=thanhntmany"
+LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_repo )
 
-_pkgs_git_thanhntmany="type=git_codeinfile; git_username=~/lab"
-LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany )
+_pkgs_git_thanhntmany_file="
+type=git_codeinfile
+git_username=thanhntmany
+git_repo=ass-single-file-script"
+LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_file )
 
-_pkgs_local_thanhntmany_lab="type=dir; path=~/lab"
+_pkgs_local_thanhntmany_lab="
+type=dir;
+path=~/lab"
 LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
 # Attached data: END
 # =============================================================================
