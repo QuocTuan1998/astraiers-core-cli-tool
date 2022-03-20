@@ -35,10 +35,10 @@ _is_func_exist () {
 
 
 # Core variables
-declare -a LOCAL_PACKAGE_SOURCES_metascript_ref=()
+declare -a FINDING_PACKAGE_SOURCES_metascript_ref=()
 declare -a FETCHING_PACKAGE_SOURCES_metascript_ref=()
 
-# Handler to find package
+# Handlers for finding package
 # find_package__$type
 find_package__directory()
 {
@@ -86,14 +86,14 @@ find_package_local_with_metascript_ref()
 }
 
 # Find package in device
-find_package_local()
+find_package()
 {
     declare -n _out=$1
     local pkg_name=$2
 
     _out=''
     local __pkg_dir
-    for metascript_ref in ${LOCAL_PACKAGE_SOURCES_metascript_ref[@]}; do
+    for metascript_ref in ${FINDING_PACKAGE_SOURCES_metascript_ref[@]}; do
         if find_package_local_with_metascript_ref __pkg_dir $pkg_name $metascript_ref;
         then
             _out=$__pkg_dir
@@ -110,7 +110,7 @@ main()
     echo ASS IS BEING EXECUTED.
     # Find and check is package avaliable in device.
     local package_dir=''
-    find_package_local package_dir $package_name
+    find_package package_dir $package_name
 
     echo package_dir: $package_dir
 }
@@ -124,18 +124,18 @@ main()
 _pkgs_git_thanhntmany_repo="
 type=git_repo
 git_username=thanhntmany"
-LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_repo )
+FINDING_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_repo )
 
 _pkgs_git_thanhntmany_file="
 type=git_codeinfile
 git_username=thanhntmany
 git_repo=ass-single-file-script"
-LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_file )
+FINDING_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_file )
 
 _pkgs_local_thanhntmany_lab="
 type=dir;
 path=~/lab"
-LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
+FINDING_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
 # Attached data: END
 # =============================================================================
 
