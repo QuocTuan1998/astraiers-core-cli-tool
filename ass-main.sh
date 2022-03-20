@@ -4,4 +4,4 @@
 # bản chất thì nó cũng là một package của chính nó
 
 
-. astraiers-tool-cli.sh
+. $(dirname $(realpath "${BASH_SOURCE[0]}"))/astraiers-tool-cli.sh

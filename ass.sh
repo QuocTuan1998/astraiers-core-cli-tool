@@ -33,10 +33,8 @@ _is_func_exist () {
 	declare -f -- "$1" >/dev/null 2>&1
 }
 
-
 # Core variables
-declare -a FINDING_PACKAGE_SOURCES_metascript_ref=()
-declare -a FETCHING_PACKAGE_SOURCES_metascript_ref=()
+declare -a ASS_PACKAGE_SOURCES_metascript_ref=()
 
 source_has_package__directory()
 {
@@ -82,7 +80,7 @@ scan_sources_for_package()
 {
     local pkg_name=$1
 
-    for metascript_ref in ${FINDING_PACKAGE_SOURCES_metascript_ref[@]}; do
+    for metascript_ref in ${ASS_PACKAGE_SOURCES_metascript_ref[@]}; do
         if source_has_package $metascript_ref $pkg_name; then
             echo FOUND FOUND FOUND at: $metascript_ref
             return 0
@@ -112,18 +110,18 @@ main()
 _pkgs_git_thanhntmany_repo="
 type=git_repo
 git_username=thanhntmany"
-FINDING_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_repo )
+ASS_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_repo )
 
 _pkgs_git_thanhntmany_file="
 type=git_codeinfile
 git_username=thanhntmany
 git_repo=ass-single-file-script"
-FINDING_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_file )
+ASS_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany_file )
 
 _pkgs_local_thanhntmany_lab="
 type=dir;
 path=~/lab"
-FINDING_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
+ASS_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
 # Attached data: END
 # =============================================================================
 
