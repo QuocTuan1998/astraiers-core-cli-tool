@@ -58,10 +58,14 @@ find_package__directory()
 {
     declare -n _out=$1
     local pkg_name=$2
+    # $path: set from metascript, indent to package-source-directiory
 
-    echo tim theo directly
-    echo path: $path
-    _out=ashjsdfhasjdhXXXXXXXXXXXXx
+    local pkg_path=$path/$pkg_name
+    if [ -d "$pkg_path" ]; then
+        _out=$pkg_path
+        return 0
+    fi
+    return 1
 }
 
 find_package_local_with_metascript_ref()
@@ -80,6 +84,8 @@ find_package_local_with_metascript_ref()
         local _ret
         if $handler _ret $pkg_name; then
             echo $_ret
+        else
+            echo haizzz
         fi
 
     else
