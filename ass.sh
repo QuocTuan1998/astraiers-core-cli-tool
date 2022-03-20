@@ -29,43 +29,103 @@ fi
 # =============================================================================
 # Minimum-usable-core: BEGIN
 
-declare -a PACKAGE_SOURCES_IN_DEVICE=()
+_is_func_exist () {
+	declare -f -- "$1" >/dev/null 2>&1
+}
 
-# Find package in device (form the specific directories)
-find_package_in_device()
+
+# Core variables
+declare -a LOCAL_PACKAGE_SOURCES_metascript_ref=()
+declare -a FETCHING_PACKAGE_SOURCES_metascript_ref=()
+
+find_package_with_metadata()
+{
+    echo aa
+}
+
+# Find package from extend-package source
+find_package_extend()
 {
     declare -n _pkg_dir=$1
     local pkg_name=$2
 
-    _pkg_dir='some where'
+    _pkg_dir='some where in device'
+
+    return 0
+}
+
+find_package__directory()
+{
+    declare -n _out=$1
+    local pkg_name=$2
+
+    echo tim theo directly
+    echo path: $path
+    _out=ashjsdfhasjdhXXXXXXXXXXXXx
+}
+
+find_package_local_with_metascript_ref()
+{
+    declare -n _out=$1
+    local pkg_name=$2
+    declare -n metascript=$3
+
+    #TODO: Them chuc nang load ref file
+    eval "$metascript"
+
+    [ "$type" = dir ] && type=directory #alias
+    local handler=find_package__$type
+    echo "" #TODO: Remove this line
+    if _is_func_exist $handler; then
+        local _ret
+        if $handler _ret $pkg_name; then
+            echo $_ret
+        fi
+
+    else
+        echo TODO: Could not found $handler #TODO: them chuc nang yeu cau nap ass
+    fi
+}
+
+# Find package in device
+find_package_local()
+{
+    declare -n _pkg_dir=$1
+    local pkg_name=$2
+
+    local metascript __pkg_dir
+    for metascript_ref in ${LOCAL_PACKAGE_SOURCES_metascript_ref[@]}; do
+        find_package_local_with_metascript_ref __pkg_dir $pkg_name $metascript_ref
+    done
+
+    _pkg_dir='some where in device'
 
     return 0
 }
 
 main()
 {
+    local package_name=$1
+    #TODO: them validate cho input
     echo ASS IS BEING EXECUTED.
     # Find and check is package avaliable in device.
     local package_dir=''
-    find_package_in_device package_dir package_name
+    find_package_local package_dir $package_name
 
     echo package_dir: $package_dir
 }
+
 # Minimum-usable-core: END
 # =============================================================================
 
 
-# Init
-# List package source metadata to find the specific package
-declare -a _ASS_PACKAGE_SOURCE_ATTACHED_REFs
-declare -a _ASS_PACKAGE_SOURCE_Ds
-
 # =============================================================================
 # Attached data: BEGIN
-_pkgs_git_thanhntmany="type=git-codeinfile; git_username=~/lab"
+_pkgs_local_thanhntmany_lab="type=dir; path=~/lab"
+LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_local_thanhntmany_lab )
 
-# Regist to attadhed source list
-_ASS_PACKAGE_SOURCE_ATTACHED_REFs+=( _pkgs_git_thanhntmany )
+_pkgs_git_thanhntmany="type=git_codeinfile; git_username=~/lab"
+LOCAL_PACKAGE_SOURCES_metascript_ref+=( _pkgs_git_thanhntmany )
 # Attached data: END
 # =============================================================================
 
